@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
+import useState from 'react-usestateref' 
+
 import Square from "./Square";
 import '../Game.css'
 
 
 function Board() {
     const status = 'Next player: X';
-    const [squares, setSquares] = useState([]);
+    const [squares, setSquares, squaresRef] = useState([]);
 
     function renderSuare(i){
-        return <Square value = {squares[i]} />
+        return <Square onClick={() => handleClick(i)} value = {squares[i]}  />
+    }
+
+    function handleClick(i) {
+        const squares = squaresRef.current.slice();
+        squares[i] = 'X';
+        setSquares(squares);
     }
 
     useEffect(() => {
-        setSquares(new Array(9).fill(null));
+        setSquares(Array(9).fill(null));
     
     }, [])
     
