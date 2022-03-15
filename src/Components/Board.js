@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Square from "./Square";
 import '../Game.css'
 
 
 function Board() {
     const status = 'Next player: X';
+    const [squares, setSquares] = useState([]);
 
     function renderSuare(i){
-        return <Square value = {i} />
+        return <Square value = {squares[i]} />
     }
+
+    useEffect(() => {
+        setSquares(new Array(9).fill(null));
+    
+    }, [])
+    
 
   return (
     <div>
