@@ -6,8 +6,8 @@ import '../Game.css'
 
 
 function Board() {
-    const status = 'Next player: X';
     const [squares, setSquares, squaresRef] = useState([]);
+    const [xIsNext, setXIsNext, xIsNextRef] = useState(false);
 
     function renderSuare(i){
         return <Square onClick={() => handleClick(i)} value = {squares[i]}  />
@@ -15,19 +15,20 @@ function Board() {
 
     function handleClick(i) {
         const squares = squaresRef.current.slice();
-        squares[i] = 'X';
+        squares[i] = xIsNextRef.current ? 'X': 'O';
         setSquares(squares);
+        setXIsNext(!xIsNextRef.current);
     }
 
     useEffect(() => {
         setSquares(Array(9).fill(null));
-    
+        setXIsNext(true);
     }, [])
     
 
   return (
     <div>
-        <div className='status'>{status}</div>
+        <div className='status'>Next player: {xIsNext ? "X": "O"};</div>
         <div className='board-row'>
             {renderSuare(0)}
             {renderSuare(1)}
